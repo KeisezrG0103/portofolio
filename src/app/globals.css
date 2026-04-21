@@ -1,26 +1,61 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-paper: #f0ebe1;
+  --color-paper-alt: #e8e2d5;
+  /* Warna kertas sedikit lebih gelap untuk membedakan layer */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    background-color: var(--color-paper);
+    color: #2a2a2a;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+
+  /* Tekstur Kertas (Dibuat class agar bisa dipakai di tiap layer kontainer) */
+  .paper-bg {
+    background-color: var(--color-paper);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
+  }
+
+  .paper-bg-alt {
+    background-color: var(--color-paper-alt);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
+  }
+
+  /* Robekan Atas yang Bergerigi di Bawahnya */
+  .torn-flap-top {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 98% 100%, 94% 94%, 90% 100%, 86% 94%, 82% 100%, 78% 95%, 74% 100%, 70% 94%, 66% 100%, 62% 95%, 58% 100%, 54% 94%, 50% 100%, 46% 95%, 42% 100%, 38% 94%, 34% 100%, 30% 95%, 26% 100%, 22% 94%, 18% 100%, 14% 95%, 10% 100%, 6% 94%, 2% 100%, 0% 95%);
+  }
+
+  /* Robekan Bawah yang Bergerigi di Atasnya */
+  .torn-flap-bottom {
+    clip-path: polygon(0% 5%, 2% 0%, 6% 6%, 10% 0%, 14% 5%, 18% 0%, 22% 6%, 26% 0%, 30% 5%, 34% 0%, 38% 6%, 42% 0%, 46% 5%, 50% 0%, 54% 6%, 58% 0%, 62% 5%, 66% 0%, 70% 6%, 74% 0%, 78% 5%, 82% 0%, 86% 6%, 90% 0%, 94% 6%, 98% 0%, 100% 5%, 100% 100%, 0% 100%);
+  }
+
+  /* Robekan Kertas Atas */
+  .torn-edge-top {
+    clip-path: polygon(0% 100%, 100% 100%,
+        100% 2%, 97% 0%, 93% 3%, 89% 1%, 86% 4%, 81% 0%, 78% 3%, 72% 0%, 68% 4%, 63% 1%, 59% 4%, 54% 0%, 49% 3%, 45% 1%, 41% 4%, 36% 0%, 32% 4%, 28% 1%, 23% 4%, 18% 0%, 14% 3%, 9% 1%, 4% 4%, 0% 0%);
+  }
+
+  /* Hand-drawn element effect */
+  .pencil-sketch {
+    filter: drop-shadow(2px 3px 0px rgba(0, 0, 0, 0.15));
+    border: 3px solid #2a2a2a;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 2px 255px 3px 25px / 255px 5px 225px 3px;
+    transform: rotate(0.5deg);
+  }
+
+  .pencil-sketch-alt {
+    filter: drop-shadow(-2px 3px 0px rgba(0, 0, 0, 0.15));
+    border: 3px solid #2a2a2a;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 255px 5px 225px 3px / 2px 200px 5px 150px;
+    transform: rotate(-0.5deg);
+  }
 }

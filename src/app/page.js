@@ -1,65 +1,102 @@
-import Image from "next/image";
+"use client";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Preloader from "@/components/Preloader";
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Experience from "@/components/Experience";
+import Education from "@/components/Education";
+import Footer from "@/components/Footer";
+
+// Komponen Pembungkus BARU: Auto Tear Reveal
+// Kertas akan menutupi layar secara solid, lalu 0.15 detik kemudian
+// MURNI MEROBEK DIRINYA SENDIRI secara otomatis.
+// Komponen Pembungkus BARU: Auto Tear Reveal
+const AutoTearReveal = ({ children, coverBg, contentBg }) => {
+  return (
+    <section className={`relative w-full h-[100dvh] snap-start snap-always overflow-hidden ${contentBg}`}>
+
+      {/* 
+        PERBAIKAN BUG ZOOM (120%): 
+        Kita tambahkan 'overflow-y-auto overflow-x-hidden' di sini agar saat isi 
+        (teks/gambar/footer) kebesaran melebihi layar, Anda tetap bisa men-scroll turun
+        ke ujung bagian Footer di dalam batasan kertas sobek ini.
+      */}
+      <div className="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden hide-scrollbar z-10">
+
+        {/* 'min-h-[100dvh]' memaksa agar isinya terpusat di tengah jika layarnya besar, tapi bebas bergeser memanjang jika layarnya kecil/di-zoom */}
+        <div className="w-full min-h-[100dvh] flex flex-col justify-center">
+          {children}
+        </div>
+
+      </div>
+
+      {/* Bagian Kulit Kertas Atas */}
+      <motion.div
+        initial={{ y: "0%" }}
+        whileInView={{ y: "-100%" }}
+        transition={{ duration: 1.2, ease: [0.65, 0, 0.35, 1], delay: 0.15 }}
+        viewport={{ once: true, amount: 0.4 }}
+        className={`absolute top-0 left-0 w-full h-[55%] z-20 pointer-events-none drop-shadow-[0_15px_15px_rgba(0,0,0,0.5)] ${coverBg} torn-flap-top`}
+      />
+
+      {/* Bagian Kulit Kertas Bawah */}
+      <motion.div
+        initial={{ y: "0%" }}
+        whileInView={{ y: "100%" }}
+        transition={{ duration: 1.2, ease: [0.65, 0, 0.35, 1], delay: 0.15 }}
+        viewport={{ once: true, amount: 0.4 }}
+        className={`absolute bottom-0 left-0 w-full h-[55%] z-20 pointer-events-none drop-shadow-[0_-15px_15px_rgba(0,0,0,0.5)] ${coverBg} torn-flap-bottom`}
+      />
+    </section>
+  );
+};
 
 export default function Home() {
+  const [showPreloader, setShowPreloader] = useState(true);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    // Wadah scroll dengan properti snap-y snap-mandatory
+    // Ini mengunci layar agar bergeser "per halaman layaknya presentasi", bukan seperti website biasa
+    <main className="relative bg-[#2a2a2a] font-sans h-[100dvh] w-full overflow-y-auto snap-y snap-mandatory scroll-smooth hide-scrollbar">
+      
+      {/* Jika header ingin mengikuti scroll, hapus fixed atau taruh di luar. Dalam hal ini kita pakai fixed agar stabil di posisi */}
+      <Header />
+
+      {showPreloader && <Preloader onComplete={() => setShowPreloader(false)} />}
+
+      {!showPreloader && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+          
+          {/* Layar 1: Hero (Dibungkus Robekan Kulit Kertas Pertama Warna Agak Gelap) */}
+          <AutoTearReveal contentBg="paper-bg-alt" coverBg="paper-bg">
+            <Hero />
+          </AutoTearReveal>
+
+          {/* Layar 2: About (Dibungkus Robekan Kulit Warna Terang) */}
+          <AutoTearReveal contentBg="paper-bg" coverBg="paper-bg-alt">
+            <About />
+          </AutoTearReveal>
+
+          {/* Layar 3: Experience (Dibungkus Robekan Kulit Warna Agak Gelap) */}
+          <AutoTearReveal contentBg="paper-bg-alt" coverBg="paper-bg">
+            <Experience />
+          </AutoTearReveal>
+
+          {/* Layar 4: Education & Footer (Dalam satu layar yang sama dangan dibungkus Warna Terang) */}
+          <AutoTearReveal contentBg="paper-bg" coverBg="paper-bg-alt">
+            <div className="w-full flex-grow flex flex-col justify-center pt-24 pb-8">
+              <Education />
+            </div>
+            {/* Footer dipaksa berada di paling bawah layar */}
+            <div className="mt-auto">
+              <Footer />
+            </div>
+          </AutoTearReveal>
+
+        </motion.div>
+      )}
+    </main>
   );
 }
