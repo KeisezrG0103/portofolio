@@ -8,6 +8,7 @@ import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Education from "@/components/Education";
 import Footer from "@/components/Footer";
+import FloatingAudio from "@/components/FloatingAudio"; 
 
 // Komponen Pembungkus BARU: Auto Tear Reveal
 // Kertas akan menutupi layar secara solid, lalu 0.15 detik kemudian
@@ -97,6 +98,7 @@ export default function Home() {
 
         </motion.div>
       )}
+      <FloatingAudio />
     </main>
   );
 }

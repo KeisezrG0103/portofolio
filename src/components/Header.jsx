@@ -17,6 +17,7 @@ export default function Header() {
         <Link href="#education" className="hover:underline decoration-wavy decoration-2 underline-offset-4">
           Education
         </Link> 
+        
       </nav>
     </header>
   );
