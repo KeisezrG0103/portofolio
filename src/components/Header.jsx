@@ -9,13 +9,13 @@ export default function Header() {
       </div>
       <nav className="flex gap-6 text-xl font-semibold">
         <Link href="#about" className="hover:underline decoration-wavy decoration-2 underline-offset-4">
-          Tentang
+          About
         </Link>
         <Link href="#experience" className="hover:underline decoration-wavy decoration-2 underline-offset-4">
-          Pengalaman
+          Experience
         </Link>
         <Link href="#education" className="hover:underline decoration-wavy decoration-2 underline-offset-4">
-          Pendidikan
+          Education
         </Link> 
       </nav>
     </header>
