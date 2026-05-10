@@ -559,7 +559,10 @@ function ImageEdgePlayground() {
   const activeInfo = edgeAlgorithms.find((algorithm) => algorithm.id === selectedAlgorithm) ?? edgeAlgorithms[0];
 
   return (
-    <section id="image-lab" className="mt-24 pb-8">
+    <section
+      id="image-lab"
+      className="mt-24 pb-8 mr-3 md:ml-6 md:mr-6 px-8"
+    >
       <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           <div className="mt-3 flex items-center gap-3">
@@ -574,24 +577,40 @@ function ImageEdgePlayground() {
             </p>
             <p className="text-base md:text-lg leading-relaxed text-gray-700">
               Upload gambar, lalu bandingkan hasil edge detection dengan Canny,
-              Sobel, Laplacian, dan Prewitt. Graf di sebelah kiri menampilkan edge
-              profile image.
+              Sobel, Laplacian, dan Prewitt. Graf di sebelah kiri menampilkan
+              edge profile image.
             </p>
           </div>
         </div>
         <div className="pencil-sketch bg-white/70 p-4 md:max-w-sm">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-gray-500 mb-3">Legend</p>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-gray-500 mb-3">
+            Legend
+          </p>
           <ul className="space-y-2 text-sm text-gray-700">
-            <li><span className="font-black text-gray-900">Canny</span>: tepi paling bersih dan tajam.</li>
-            <li><span className="font-black text-gray-900">Sobel / Prewitt</span>: gradient detector sederhana.</li>
-            <li><span className="font-black text-gray-900">Laplacian</span>: lebih sensitif ke perubahan intensitas.</li>
+            <li>
+              <span className="font-black text-gray-900">Canny</span>: tepi
+              paling bersih dan tajam.
+            </li>
+            <li>
+              <span className="font-black text-gray-900">Sobel / Prewitt</span>:
+              gradient detector sederhana.
+            </li>
+            <li>
+              <span className="font-black text-gray-900">Laplacian</span>: lebih
+              sensitif ke perubahan intensitas.
+            </li>
           </ul>
         </div>
       </div>
 
       <motion.div
         className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] items-start"
-        style={{ perspective: 1400, transformStyle: "preserve-3d", rotateX: "-3deg", rotateY: "2deg" }}
+        style={{
+          perspective: 1400,
+          transformStyle: "preserve-3d",
+          rotateX: "-3deg",
+          rotateY: "2deg",
+        }}
         transition={{ type: "spring", stiffness: 80, damping: 16 }}
       >
         <motion.div
@@ -602,21 +621,51 @@ function ImageEdgePlayground() {
         >
           <div className="mb-4 flex items-center gap-3 text-gray-500">
             <Search className="h-5 w-5" />
-            <span className="text-sm font-bold uppercase tracking-[0.3em]">Edge graph</span>
+            <span className="text-sm font-bold uppercase tracking-[0.3em]">
+              Edge graph
+            </span>
           </div>
           <div className="relative overflow-hidden rounded-3xl border-2 border-gray-900 bg-linear-to-b from-white/90 to-amber-50/70 p-4 shadow-[8px_10px_0_0_rgba(0,0,0,0.12)]">
             <svg viewBox="0 0 100 100" className="h-64 w-full">
               <defs>
-                <filter id="edge-graph-glow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="0" dy="2" stdDeviation="1.1" floodColor="#2563eb" floodOpacity="0.25" />
+                <filter
+                  id="edge-graph-glow"
+                  x="-20%"
+                  y="-20%"
+                  width="140%"
+                  height="140%"
+                >
+                  <feDropShadow
+                    dx="0"
+                    dy="2"
+                    stdDeviation="1.1"
+                    floodColor="#2563eb"
+                    floodOpacity="0.25"
+                  />
                 </filter>
               </defs>
 
               {[20, 40, 60, 80].map((line) => (
-                <line key={line} x1="8" y1={line} x2="96" y2={line} stroke="#cbd5e1" strokeDasharray="1.5 2.5" opacity="0.5" />
+                <line
+                  key={line}
+                  x1="8"
+                  y1={line}
+                  x2="96"
+                  y2={line}
+                  stroke="#cbd5e1"
+                  strokeDasharray="1.5 2.5"
+                  opacity="0.5"
+                />
               ))}
 
-              <line x1="8" y1="88" x2="96" y2="88" stroke="#111827" strokeOpacity="0.25" />
+              <line
+                x1="8"
+                y1="88"
+                x2="96"
+                y2="88"
+                stroke="#111827"
+                strokeOpacity="0.25"
+              />
 
               <polyline
                 points={profilePoints || "0,88 100,88"}
@@ -628,32 +677,56 @@ function ImageEdgePlayground() {
                 filter="url(#edge-graph-glow)"
               />
 
-              <path d={`M ${profilePoints || "0,88 100,88"} L 100,92 L 0,92 Z`} fill="rgba(37, 99, 235, 0.08)" />
+              <path
+                d={`M ${profilePoints || "0,88 100,88"} L 100,92 L 0,92 Z`}
+                fill="rgba(37, 99, 235, 0.08)"
+              />
             </svg>
 
             <div className="grid gap-3 sm:grid-cols-3">
               <div className="rounded-2xl border border-gray-900 bg-white p-3 shadow-[3px_4px_0_0_rgba(0,0,0,0.12)]">
-                <p className="text-[11px] font-black uppercase tracking-[0.25em] text-gray-500">Resolution</p>
-                <p className="mt-1 text-lg font-black text-gray-900">{displayMeta.width && displayMeta.height ? `${displayMeta.width} x ${displayMeta.height}` : "-"}</p>
+                <p className="text-[11px] font-black uppercase tracking-[0.25em] text-gray-500">
+                  Resolution
+                </p>
+                <p className="mt-1 text-lg font-black text-gray-900">
+                  {displayMeta.width && displayMeta.height
+                    ? `${displayMeta.width} x ${displayMeta.height}`
+                    : "-"}
+                </p>
               </div>
               <div className="rounded-2xl border border-gray-900 bg-white p-3 shadow-[3px_4px_0_0_rgba(0,0,0,0.12)]">
-                <p className="text-[11px] font-black uppercase tracking-[0.25em] text-gray-500">Edge density</p>
-                <p className="mt-1 text-lg font-black text-gray-900">{(displayMeta.edgeDensity * 100).toFixed(1)}%</p>
+                <p className="text-[11px] font-black uppercase tracking-[0.25em] text-gray-500">
+                  Edge density
+                </p>
+                <p className="mt-1 text-lg font-black text-gray-900">
+                  {(displayMeta.edgeDensity * 100).toFixed(1)}%
+                </p>
               </div>
               <div className="rounded-2xl border border-gray-900 bg-white p-3 shadow-[3px_4px_0_0_rgba(0,0,0,0.12)]">
-                <p className="text-[11px] font-black uppercase tracking-[0.25em] text-gray-500">Strong edges</p>
-                <p className="mt-1 text-lg font-black text-gray-900">{displayMeta.strongEdges}</p>
+                <p className="text-[11px] font-black uppercase tracking-[0.25em] text-gray-500">
+                  Strong edges
+                </p>
+                <p className="mt-1 text-lg font-black text-gray-900">
+                  {displayMeta.strongEdges}
+                </p>
               </div>
             </div>
           </div>
         </motion.div>
 
         <div className="space-y-6">
-          <motion.div className="pencil-sketch bg-[#fffdf9] p-5 md:p-6" style={{ transform: "translateZ(28px)" }}>
+          <motion.div
+            className="pencil-sketch bg-[#fffdf9] p-5 md:p-6"
+            style={{ transform: "translateZ(28px)" }}
+          >
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[0.3em] text-gray-500">Upload and play</p>
-                <p className="mt-2 text-lg text-gray-700">Pilih gambar lalu bandingkan hasil edge detection secara live.</p>
+                <p className="text-xs font-bold uppercase tracking-[0.3em] text-gray-500">
+                  Upload and play
+                </p>
+                <p className="mt-2 text-lg text-gray-700">
+                  Pilih gambar lalu bandingkan hasil edge detection secara live.
+                </p>
               </div>
               <button
                 type="button"
@@ -663,7 +736,13 @@ function ImageEdgePlayground() {
                 <Upload className="h-4 w-4" />
                 Upload image
               </button>
-              <input ref={fileInputRef} type="file" accept="image/*" onChange={handleUpload} className="hidden" />
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleUpload}
+                className="hidden"
+              />
             </div>
 
             <div className="mt-5 flex flex-wrap gap-3">
@@ -682,16 +761,30 @@ function ImageEdgePlayground() {
               })}
             </div>
 
-            <p className="mt-4 text-sm leading-relaxed text-gray-600">{activeInfo.short}</p>
+            <p className="mt-4 text-sm leading-relaxed text-gray-600">
+              {activeInfo.short}
+            </p>
           </motion.div>
 
           <div className="grid gap-4 md:grid-cols-2">
-            <motion.div className="pencil-sketch bg-white/70 p-4 md:p-5" style={{ transform: "translateZ(30px)" }} whileHover={{ y: -4 }}>
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-gray-500 mb-4">Original image</p>
+            <motion.div
+              className="pencil-sketch bg-white/70 p-4 md:p-5"
+              style={{ transform: "translateZ(30px)" }}
+              whileHover={{ y: -4 }}
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.3em] text-gray-500 mb-4">
+                Original image
+              </p>
               <div className="flex min-h-64 items-center justify-center overflow-hidden rounded-2xl border border-dashed border-gray-400 bg-[#faf7f0]">
                 {imageSource ? (
                   <div className="relative h-64 w-full">
-                    <NextImage src={imageSource} alt="Uploaded preview" fill unoptimized className="object-contain" />
+                    <NextImage
+                      src={imageSource}
+                      alt="Uploaded preview"
+                      fill
+                      unoptimized
+                      className="object-contain"
+                    />
                   </div>
                 ) : (
                   <p className="max-w-xs px-6 text-center text-sm leading-relaxed text-gray-500">
@@ -701,16 +794,29 @@ function ImageEdgePlayground() {
               </div>
             </motion.div>
 
-            <motion.div className="pencil-sketch bg-white/70 p-4 md:p-5" style={{ transform: "translateZ(30px)" }} whileHover={{ y: -4 }}>
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-gray-500 mb-4">Edge output</p>
+            <motion.div
+              className="pencil-sketch bg-white/70 p-4 md:p-5"
+              style={{ transform: "translateZ(30px)" }}
+              whileHover={{ y: -4 }}
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.3em] text-gray-500 mb-4">
+                Edge output
+              </p>
               <div className="flex min-h-64 items-center justify-center overflow-hidden rounded-2xl border border-dashed border-gray-400 bg-[#faf7f0]">
                 {displayProcessedSource ? (
                   <div className="relative h-64 w-full">
-                    <NextImage src={displayProcessedSource} alt={`Edge result ${selectedAlgorithm}`} fill unoptimized className="object-contain" />
+                    <NextImage
+                      src={displayProcessedSource}
+                      alt={`Edge result ${selectedAlgorithm}`}
+                      fill
+                      unoptimized
+                      className="object-contain"
+                    />
                   </div>
                 ) : (
                   <p className="max-w-xs px-6 text-center text-sm leading-relaxed text-gray-500">
-                    Hasil edge detection akan muncul di sini setelah gambar diupload.
+                    Hasil edge detection akan muncul di sini setelah gambar
+                    diupload.
                   </p>
                 )}
               </div>
@@ -780,7 +886,7 @@ export default function CorrelationLab() {
             <div className="mt-3 flex items-center gap-3">
               <Network className="h-8 w-8 text-gray-700" />
               <h2 className="text-5xl font-black underline decoration-wavy decoration-2">
-                This is TF-IDF Playground
+               TF-IDF Playground
               </h2>
             </div>
             <div className="mt-4 max-w-3xl rounded-3xl border-2 border-gray-900 bg-white/70 p-4 md:p-5 shadow-[6px_8px_0_0_rgba(0,0,0,0.14)]">
