@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude md files and agent md but not readme md
+*.md
+!README.md
+!**/README.md
+!**/readme.md
+!**/Readme.md
+!**/README.MD
