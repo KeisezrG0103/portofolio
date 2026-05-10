@@ -7,12 +7,15 @@ export default function Header() {
       <div className="text-3xl font-bold -rotate-2 pencil-sketch px-4 py-1 inline-block">
         NICW
       </div>
-      <nav className="flex gap-6 text-xl font-semibold">
+      <nav className="flex flex-wrap justify-end gap-4 md:gap-6 text-lg md:text-xl font-semibold">
         <Link href="#about" className="hover:underline decoration-wavy decoration-2 underline-offset-4">
           About
         </Link>
         <Link href="#experience" className="hover:underline decoration-wavy decoration-2 underline-offset-4">
           Experience
+        </Link>
+        <Link href="#nlp-lab" className="hover:underline decoration-wavy decoration-2 underline-offset-4">
+          Playground
         </Link>
         <Link href="#education" className="hover:underline decoration-wavy decoration-2 underline-offset-4">
           Education

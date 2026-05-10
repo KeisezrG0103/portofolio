@@ -2,10 +2,31 @@
 import { motion } from "framer-motion";
 
 const experiences = [
-  { year: "Aug 2024 - Feb 2025", role: "Application Developer", company: "Polytron Indonesia" },
-  { year: "Aug 2023 - Jan 2024", role: "Asst. Lecturer for Machine Learning & Deep Learning", company: "Universitas Atma Jaya Yogyakarta" },
-  { year: "Feb 2023 - Jul 2023", role: "Asst. Lecturer for Discrete Mathematics", company: "Universitas Atma Jaya Yogyakarta" },
-  { year: "Sep 2022 - Jan 2023", role: "Asst. Lecturer for Statistics", company: "Universitas Atma Jaya Yogyakarta" },
+  {
+    year: "Jan 2026 - Aug 2026",
+    role: "Asst. Lecturer for Natural Language Processing",
+    company: "Universitas Atma Jaya Yogyakarta",
+  },
+  {
+    year: "Aug 2024 - Feb 2025",
+    role: "Application Developer",
+    company: "Polytron Indonesia",
+  },
+  {
+    year: "Aug 2023 - Jan 2024",
+    role: "Asst. Lecturer for Machine Learning & Deep Learning",
+    company: "Universitas Atma Jaya Yogyakarta",
+  },
+  {
+    year: "Feb 2023 - Jul 2023",
+    role: "Asst. Lecturer for Discrete Mathematics",
+    company: "Universitas Atma Jaya Yogyakarta",
+  },
+  {
+    year: "Sep 2022 - Jan 2023",
+    role: "Asst. Lecturer for Statistics",
+    company: "Universitas Atma Jaya Yogyakarta",
+  },
 ];
 
 export default function Experience() {

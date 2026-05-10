@@ -12,7 +12,6 @@ const FloatingAudio = () => {
      if (audioRef.current) {
        audioRef.current.volume = 0.5; // Mengatur volume di 50%
 
-       // TAMBAHKAN BARIS INI: Memulai lagu dari detik ke-8
        audioRef.current.currentTime = 8;
 
        const playPromise = audioRef.current.play();

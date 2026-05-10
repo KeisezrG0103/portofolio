@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Experience from "@/components/Experience";
+import CorrelationLab from "@/components/CorrelationLab";
 import Education from "@/components/Education";
 import Footer from "@/components/Footer";
 import FloatingAudio from "@/components/FloatingAudio"; 
@@ -85,8 +86,13 @@ export default function Home() {
             <Experience />
           </AutoTearReveal>
 
-          {/* Layar 4: Education & Footer (Dalam satu layar yang sama dangan dibungkus Warna Terang) */}
+          {/* Layar 4: NLP Correlation Lab (Dibungkus Robekan Kulit Warna Terang) */}
           <AutoTearReveal contentBg="paper-bg" coverBg="paper-bg-alt">
+            <CorrelationLab />
+          </AutoTearReveal>
+
+          {/* Layar 5: Education & Footer (Dalam satu layar yang sama dangan dibungkus Warna Agak Gelap) */}
+          <AutoTearReveal contentBg="paper-bg-alt" coverBg="paper-bg">
             <div className="w-full flex-grow flex flex-col justify-center pt-24 pb-8">
               <Education />
             </div>
